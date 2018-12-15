@@ -9,9 +9,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class="form-check" style="width: 25%; float: left;" *ngFor="let bucket of aggregation.buckets">
-          <app-checkbox [categoryName]="aggregation.name" [bucket]="bucket" [modelCheckbox]="true" [selectedOptions]="selectedOptions"></app-checkbox>
-        </div>
+        <app-checkbox style="width: 25%; float: left;" *ngFor="let bucket of aggregation.buckets" [categoryName]="aggregation.name" [bucket]="bucket" [modelCheckbox]="true" [selectedOptions]="selectedOptions"></app-checkbox>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary upcase" data-dismiss="modal" (click)="clearAllFilter()">Clear All</button>
