@@ -1,0 +1,7 @@
+<label class="form-check-label" for="checkbox{{modelCheckbox}}{{bucket.key}}">
+  <input class="form-check-input" 
+         type="checkbox" value="{{ bucket.key }}"
+         [checked]= "selectedOptions.indexOf(bucket.key) != -1"
+         id="checkbox{{modelCheckbox}}{{bucket.key}}" (change)="onCheckboxChange($event, bucket.key)">
+  {{ mobileService.humanize(bucket.key) }} ({{ bucket.count }})
+</label>

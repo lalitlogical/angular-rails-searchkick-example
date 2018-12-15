@@ -1,0 +1,9 @@
+a.filters {
+    background-color: lightgray;
+    margin-right: 5px;
+    padding: 2px;
+}
+
+.upcase {
+    text-transform: uppercase;
+}

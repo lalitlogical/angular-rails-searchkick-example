@@ -1,0 +1,19 @@
+<div class="card mb-4 box-shadow">
+  <div class="card-body" *ngIf="aggregation">
+    <a class="clear-filter" *ngIf="selectedOptions.length !== 0" (click)="clearFilter()">
+      clear <span aria-hidden="true">×</span>
+    </a>
+    <h6 class="card-subtitle mb-2 text-muted">{{ mobileService.humanize(aggregation.name) }}</h6>
+    
+    <div class="form-check" *ngFor="let bucket of aggregation.buckets | slice:0:5;">
+      <app-checkbox [categoryName]="aggregation.name" [bucket]="bucket" [selectedOptions]="selectedOptions"></app-checkbox>
+    </div>
+
+    <!-- Button trigger modal -->
+    <a class="upcase more" *ngIf="aggregation.buckets.length >= 6" data-toggle="modal" (click)="openFilterModel()" [attr.data-target]="'#' + aggregation.name">
+      {{ aggregation.buckets.length - 5 }} more
+    </a>
+    
+    <app-filter-modal [aggregation]="aggregation"></app-filter-modal>
+  </div>
+</div>

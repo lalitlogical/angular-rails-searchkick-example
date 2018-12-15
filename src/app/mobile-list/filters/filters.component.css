@@ -1,0 +1,18 @@
+.clear-filter {
+    float: right;
+    margin-top: -8px;
+}
+
+.upcase {
+    text-transform: uppercase;
+}
+
+.more {
+    color: #2874f0 !important;
+    cursor: pointer;
+    margin-top: 9px;
+}
+
+.form-check {
+    width: 100%;
+}
