@@ -110,7 +110,7 @@ export class MobileListComponent implements OnInit {
   removeFilter(filter: string) {
     if (filter === 'sorting') {
       this.activeFilter = '_score';
-      this.mobileService.filters[filter] = '_score';
+      this.mobileService.filters[filter] = '';
     } else {
       this.mobileService.filters[filter] = [];
     }
