@@ -3,9 +3,9 @@
     class="custom-control-input" 
     type="checkbox" value="{{ bucket.key }}"
     [checked]= "selectedOptions.indexOf(bucket.key) != -1"
-    id="checkbox{{modelCheckbox}}{{bucket.key}}" 
+    id="{{checkboxId}}" 
     (change)="onCheckboxChange($event, bucket.key)">
-  <label class="custom-control-label" for="checkbox{{modelCheckbox}}{{bucket.key}}">
+  <label class="custom-control-label" for="{{checkboxId}}">
     {{ mobileService.humanize(bucket.key) }} ({{ bucket.count }})
   </label>
 </div>

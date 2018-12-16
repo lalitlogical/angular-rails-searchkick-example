@@ -11,10 +11,16 @@ export class CheckboxComponent implements OnInit {
   @Input() categoryName: string;
   @Input() bucket: {key: string, count: number};
   @Input() selectedOptions: string[];
+  public checkboxId: string;
 
   constructor(private mobileService: MobileService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.checkboxId = this.categoryName + 'Checkbox' + this.bucket.key;
+    if (this.modelCheckbox) {
+      this.checkboxId += 'Model';
+    }
+  }
 
   onCheckboxChange(event: any, value: string) {
     let oldSelectedOptions: any;

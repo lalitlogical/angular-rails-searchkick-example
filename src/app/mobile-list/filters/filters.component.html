@@ -13,6 +13,6 @@
       {{ aggregation.buckets.length - 5 }} more
     </a>
     
-    <app-filter-modal [aggregation]="aggregation"></app-filter-modal>
+    <app-filter-modal *ngIf="aggregation.buckets.length >= 6" [aggregation]="aggregation"></app-filter-modal>
   </div>
 </div>
