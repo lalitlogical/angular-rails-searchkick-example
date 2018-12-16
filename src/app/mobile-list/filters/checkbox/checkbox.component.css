@@ -3,3 +3,7 @@
     top: 3px;
     right: 0;
 } */
+
+.custom-control, .custom-control * {
+    cursor: pointer;
+}

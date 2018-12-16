@@ -7,10 +7,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 
 const appRoutes: Routes = [
     { path: '', component: MobileListComponent  },
-    { path: 'mobiles', component: MobileListComponent, children: [
-        { path: ':id', component: MobileDetailComponent }
-        ]
-    },
+    { path: 'mobiles', component: MobileListComponent },
+    { path: 'mobiles/:id', component: MobileDetailComponent },
     { path: 'not-found', component: PageNotFoundComponent },
     { path: '**', redirectTo: '/not-found'}
 ];

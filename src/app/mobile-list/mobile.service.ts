@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class MobileService {
+  public base_url = 'http://localhost:3009/api/v1';
   public mobiles: Mobile[];
   public filters: {} = {};
   public modalFilters: {} = {};
@@ -14,11 +15,11 @@ export class MobileService {
   constructor(private http: HttpClient) {}
 
   public getMobiles(query: string): Observable<any> {
-    return this.http.get('http://localhost:3009/api/v1/mobiles?' + query);
+    return this.http.get(this.base_url + '/mobiles?' + query);
   }
 
   public getMobileDetail(id: number): Observable<any> {
-    return this.http.get('https://yts.am/api/v2/movie_details.json?movie_id' + id);
+    return this.http.get(this.base_url + '/mobiles/' + id);
   }
 
   humanize(text: any) {

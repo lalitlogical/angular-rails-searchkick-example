@@ -1,3 +1,27 @@
-<p>
-  mobile-detail works!
-</p>
+<ngx-spinner
+  bdColor = "rgba(51, 51, 51, 0.8)"
+  size = "medium"
+  color = "#fff"
+  type = "pacman"
+></ngx-spinner>
+
+<div class="row" *ngIf="mobile">
+    <div class="col-sm-4">
+      <img src="{{ mobile.avatar }}" alt="..." class="img-thumbnail" onError="placeholder(this)">
+    </div>
+    <div class="col-sm-8">
+      <div class="card" style="margin-bottom: 20px;">
+        <div class="card-body">
+          <h4 class="card-title">{{ mobile.name }}</h4>
+          <p class="card-text">{{ mobile.description }}</p>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            <li> ₹{{ mobile.price }} </li>
+            <li> {{ mobile.ram }} GB RAM </li>
+            <li> {{ mobile.screen_size }} inch Display </li>
+            <li> {{ mobile.primary_camera }} Rear Camera </li>
+            <li> {{ mobile.battery }} mAh Battery </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>

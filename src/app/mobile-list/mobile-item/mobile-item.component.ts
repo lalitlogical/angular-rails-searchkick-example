@@ -1,5 +1,5 @@
 import { Mobile } from './../mobile.model';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-mobile-item',
@@ -8,10 +8,15 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class MobileItemComponent implements OnInit {
   @Input() mobile: Mobile;
+  @ViewChild('avatarImage') avatarImageRef: ElementRef;
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  placeholder() {
+    this.avatarImageRef.nativeElement.src = '/src/assets/img/placeholder4.png';
   }
 
 }

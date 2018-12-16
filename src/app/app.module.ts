@@ -36,7 +36,7 @@ import { MobileService } from './mobile-list/mobile.service';
     NgxSpinnerModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [MobileService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
