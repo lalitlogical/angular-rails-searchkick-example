@@ -9,6 +9,9 @@
   <div class="col-sm-3">
     <div class="card mb-4 box-shadow" *ngIf="mobiles.length !== 0">
       <div class="card-body">
+        <a class="btn btn-raised btn-sm btn-danger clear-filter upcase" *ngIf="getFilters().length !== 0" (click)="removeAllFilters()">
+          clear all <span aria-hidden="true">×</span>
+        </a>
         <h6 class="card-title">Filters</h6>
         
         <input name="search" class="form-control" type="search" placeholder="Search" aria-label="Search" [value]="searchText" (blur)="onSearchTextFieldBlur($event)">
@@ -25,11 +28,11 @@
       Mobiles (Showing {{ ((meta.current_page - 1) * meta.per_page) + 1 }} – {{ (meta.current_page * meta.per_page) - 1 }} products of {{ meta.total_count }} products)
     </p>
 
-    <ul class="nav nav-tabs bg-dark" *ngIf="mobiles.length !== 0">
+    <ul class="nav nav-tabs bg-primary" *ngIf="mobiles.length !== 0">
       <li class="nav-item" *ngFor="let sorting_tab of sorting_tabs">
         <a class="nav-link" 
           (click)="onTabClick(sorting_tab.sort_by)"
-          [ngClass]="{'active': activeFilter == sorting_tab.sort_by}">{{ sorting_tab.name }}</a>
+          [ngClass]="{'active': isTabActive(sorting_tab.sort_by)}">{{ sorting_tab.name }}</a>
       </li>
     </ul>
 
@@ -41,7 +44,7 @@
   </div>
 </div>
 
-<div class="row" *ngIf="mobiles.length === 0">
+<div class="row" *ngIf="apiCompleted && mobiles.length === 0">
   <div class="col-sm-12">
     <div>
       <img src="/src/assets/img/no-record-found.png" style="margin: 20px auto; display: block;">
@@ -53,6 +56,6 @@
       </p>
       <p style="text-align: center;">OR</p>
     </div>
-    <button class="upcase" style="margin: 20px auto; display: block;" class="btn btn-raised btn-primary" (click)="removeAllFilter()">Reset all filters</button>
+    <button class="upcase" style="margin: 20px auto; display: block;" class="btn btn-raised btn-primary" (click)="removeAllFilters()">Reset all filters</button>
   </div>
 </div>

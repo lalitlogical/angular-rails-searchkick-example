@@ -19,12 +19,12 @@ export class MobileDetailComponent implements OnInit {
 
   ngOnInit() {
     const id = +this.route.snapshot.params['id'];
-    this.getMobileDetail(id);
+    this.fetchMobileDetail(id);
   }
 
-  getMobileDetail(id: number) {
+  fetchMobileDetail(id: number) {
     this.spinner.show();
-    this.mobileService.getMobileDetail(id)
+    this.mobileService.fetchMobileDetail(id)
     .subscribe(res => {
       this.mobile = res.data;
       this.spinner.hide();

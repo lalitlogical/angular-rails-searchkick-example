@@ -13,15 +13,11 @@ export class FiltersComponent implements OnInit {
   constructor(private mobileService: MobileService ) { }
 
   ngOnInit() {
-    if (!this.mobileService.filters[this.aggregation.name]) {
-      this.mobileService.filters[this.aggregation.name] = [];
-    }
-    this.selectedOptions = this.mobileService.filters[this.aggregation.name];
+    this.selectedOptions = this.mobileService.valueFor(this.aggregation.name, true);
   }
 
   clearSelectedOptions() {
-    this.mobileService.filters[this.aggregation.name] = [];
-    this.mobileService.filterSelected.emit();
+    this.mobileService.navigateWith(this.aggregation.name, null);
   }
 
   openFilterModel() {

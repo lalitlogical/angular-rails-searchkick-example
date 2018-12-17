@@ -8,3 +8,13 @@
     margin: 0 !important;
     border-bottom: 1px solid lightgrey !important;
 } */
+
+.checkbox.custom-checkbox label {
+    font-size: .875rem;
+}
+
+.clear-filter {
+    float: right;
+    margin-top: -7px;
+    padding: .10625rem .5rem !important;
+}

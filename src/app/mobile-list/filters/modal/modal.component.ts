@@ -23,20 +23,18 @@ export class ModalComponent implements OnInit {
   }
 
   setSelectedOptions() {
-    this.selectedOptions = this.mobileService.filters[this.aggregation.name].slice(0);
+    this.selectedOptions = this.mobileService.valueFor(this.aggregation.name, true);
   }
 
   applyFilters() {
     if (this.selectedOptions.length !== 0) {
-      this.mobileService.filters[this.aggregation.name] = this.selectedOptions;
-      this.mobileService.filterSelected.emit();
+      this.mobileService.navigateWith(this.aggregation.name, this.selectedOptions.join(','));
     }
   }
 
   clearAllFilter() {
     if (this.selectedOptions.length !== 0) {
-      this.mobileService.filters[this.aggregation.name] = [];
-      this.mobileService.filterSelected.emit();
+      this.mobileService.navigateWith(this.aggregation.name, null);
     }
   }
 }

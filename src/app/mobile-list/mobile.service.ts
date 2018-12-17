@@ -1,3 +1,4 @@
+import { Router, ActivatedRoute } from '@angular/router';
 import { Injectable, EventEmitter } from '@angular/core';
 import { Mobile } from './mobile.model';
 import { HttpClient } from '@angular/common/http';
@@ -7,18 +8,17 @@ import { Observable } from 'rxjs/Observable';
 export class MobileService {
   public base_url = 'http://localhost:3009/api/v1';
   public mobiles: Mobile[];
-  public filters: {} = {};
-  public modalFilters: {} = {};
-  filterSelected = new EventEmitter<void>();
   modelOpened = new EventEmitter<void>();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+    private router: Router,
+    private route: ActivatedRoute) {}
 
-  public getMobiles(query: string): Observable<any> {
+  public fetchMobiles(query: string): Observable<any> {
     return this.http.get(this.base_url + '/mobiles?' + query);
   }
 
-  public getMobileDetail(id: number): Observable<any> {
+  public fetchMobileDetail(id: number): Observable<any> {
     return this.http.get(this.base_url + '/mobiles/' + id);
   }
 
@@ -37,5 +37,41 @@ export class MobileService {
       return text.join(' ');
     }
     return text;
+  }
+
+  valueFor(categoryName: string, multiple?: boolean) {
+    const queryParams = Object.assign({}, this.route.snapshot.queryParams);
+    if (!queryParams[categoryName]) {
+      return multiple ? [] : '';
+    } else if (multiple) {
+      return queryParams[categoryName].split(',');
+    }
+    return queryParams[categoryName];
+  }
+
+  queryParams() {
+    return Object.assign({}, this.route.snapshot.queryParams);
+  }
+
+  navigateWith(categoryName: string, value: string, root?: boolean) {
+    if (root) {
+      const queryParams = {};
+      if (categoryName) {
+        queryParams[categoryName] = value;
+      }
+      this.router.navigate(['mobiles'], { queryParams: queryParams });
+    } else {
+      let queryParams = this.queryParams();
+      if (categoryName) {
+        if (value) {
+          queryParams[categoryName] = value;
+        } else {
+          delete queryParams[categoryName];
+        }
+      } else {
+        queryParams = {};
+      }
+      this.router.navigate(['mobiles'], { queryParams: queryParams });
+    }
   }
 }
