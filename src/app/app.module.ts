@@ -17,6 +17,8 @@ import { ModalComponent } from './mobile-list/filters/modal/modal.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AppRoutingModule } from './app-routing.module';
 import { MobileService } from './mobile-list/mobile.service';
+import { HomeComponent } from './home/home.component';
+// import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -28,13 +30,15 @@ import { MobileService } from './mobile-list/mobile.service';
     MobileItemComponent,
     CheckboxComponent,
     ModalComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     NgxSpinnerModule,
     AppRoutingModule
+    // FontAwesomeModule
   ],
   providers: [MobileService],
   bootstrap: [AppComponent]

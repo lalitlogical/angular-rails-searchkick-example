@@ -5,41 +5,27 @@
   type = "pacman"
 ></ngx-spinner>
 
-<section class="jumbotron text-center">
-  <div class="container">
-    <h1 class="jumbotron-heading">Angular, Rails, Searchkick Example</h1>
-    <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.</p>
-    <p>
-      <a routerLink="/" href="#" class="btn btn-primary my-2">Main call to action</a>
-      <a routerLink="/" href="#" class="btn btn-secondary my-2">Secondary action</a>
-    </p>
-    <div style="margin: auto; width: 422px;">
-      <form action="" class="form-inline search-form" style="width: 422px;">
-        <input #searchInput name="search" style="width: 422px;" class="form-control" type="search" placeholder="Search" aria-label="Search" value="" (blur)="onSearchTextFieldBlur()">
-      </form>
-    </div>
-  </div>
-</section>
-
 <div class="row">
   <div class="col-sm-3">
-    <div class="row" style="margin: 0;">
-      <app-filters style="width: 100%;" *ngFor="let aggregation of aggregations" [aggregation]="aggregation"></app-filters>
-    </div>
-  </div>
-  <div class="col-sm-9">
     <div class="card mb-4 box-shadow" *ngIf="mobiles.length !== 0">
-      <div class="card-body" style="padding-bottom: 10px;">
-        <h5 class="card-title" style="color: #000;">
-          Mobiles (Showing {{ ((meta.current_page - 1) * meta.per_page) + 1 }} – {{ (meta.current_page * meta.per_page) - 1 }} products of {{ meta.total_count }} products)
-        </h5>
-        <a class="filters" *ngFor="let filter of getFilters()" (click)="removeFilter(filter)">
+      <div class="card-body">
+        <h6 class="card-title">Filters</h6>
+        
+        <input name="search" class="form-control" type="search" placeholder="Search" aria-label="Search" [value]="searchText" (blur)="onSearchTextFieldBlur($event)">
+
+        <a class="btn btn-raised btn-sm btn-danger filters" *ngFor="let filter of getFilters()" (click)="removeFilter(filter)">
           <span aria-hidden="true">×</span> {{ mobileService.humanize(filter) }}
         </a>
       </div>
     </div>
+    <app-filters style="width: 100%;" *ngFor="let aggregation of aggregations" [aggregation]="aggregation"></app-filters>
+  </div>
+  <div class="col-sm-9">
+    <p class="font-weight-bold" *ngIf="mobiles.length !== 0">
+      Mobiles (Showing {{ ((meta.current_page - 1) * meta.per_page) + 1 }} – {{ (meta.current_page * meta.per_page) - 1 }} products of {{ meta.total_count }} products)
+    </p>
 
-    <ul class="nav nav-tabs" *ngIf="mobiles.length !== 0">
+    <ul class="nav nav-tabs bg-dark" *ngIf="mobiles.length !== 0">
       <li class="nav-item" *ngFor="let sorting_tab of sorting_tabs">
         <a class="nav-link" 
           (click)="onTabClick(sorting_tab.sort_by)"
@@ -48,7 +34,7 @@
     </ul>
 
     <div class="row" style="margin-top: 25px;">
-      <div class="col-sm-6 col-md-4" *ngFor="let mobileItem of mobiles">
+      <div class="col-sm-12" *ngFor="let mobileItem of mobiles">
         <app-mobile-item [mobile]="mobileItem"></app-mobile-item>
       </div>
     </div>
@@ -61,9 +47,12 @@
       <img src="/src/assets/img/no-record-found.png" style="margin: 20px auto; display: block;">
     </div>
     <div *ngIf="meta && suggestions">
-      <p style="text-align: center;">Go with following suggestions? <a class="filters" *ngFor="let suggestion of suggestions" (click)="onClickOfSuggestion(suggestion)">{{ suggestion }}</a></p>
+      <p style="text-align: center;">
+        Go with following suggestions.
+        <a class="btn btn-raised btn-sm btn-info suggestion" *ngFor="let suggestion of suggestions" (click)="onClickOfSuggestion(suggestion)">{{ suggestion }}</a>
+      </p>
       <p style="text-align: center;">OR</p>
     </div>
-    <button class="upcase" style="margin: 20px auto; display: block;" class="btn btn-primary" (click)="removeAllFilter()">Reset all filters</button>
+    <button class="upcase" style="margin: 20px auto; display: block;" class="btn btn-raised btn-primary" (click)="removeAllFilter()">Reset all filters</button>
   </div>
 </div>

@@ -26,7 +26,7 @@ export class ModalComponent implements OnInit {
     this.selectedOptions = this.mobileService.filters[this.aggregation.name].slice(0);
   }
 
-  onApplyFilters() {
+  applyFilters() {
     if (this.selectedOptions.length !== 0) {
       this.mobileService.filters[this.aggregation.name] = this.selectedOptions;
       this.mobileService.filterSelected.emit();

@@ -1,11 +1,14 @@
-<div class="custom-control custom-checkbox">
-  <input 
-    class="custom-control-input" 
-    type="checkbox" value="{{ bucket.key }}"
-    [checked]= "selectedOptions.indexOf(bucket.key) != -1"
-    id="{{checkboxId}}" 
-    (change)="onCheckboxChange($event, bucket.key)">
-  <label class="custom-control-label" for="{{checkboxId}}">
+<div class="checkbox">
+  <label>
+    <input
+      type="checkbox" value="{{ bucket.key }}"
+      [checked]= "selectedOptions.indexOf(bucket.key + '') != -1"
+      id="{{checkboxId}}" 
+      (change)="onCheckboxChange($event, bucket.key + '')">
+      <span class="checkbox-decorator">
+        <span class="check"></span>
+        <div class="ripple-container"></div>
+      </span>
     {{ mobileService.humanize(bucket.key) }} ({{ bucket.count }})
   </label>
 </div>

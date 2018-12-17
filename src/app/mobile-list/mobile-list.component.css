@@ -1,14 +1,16 @@
 a.filters {
-    background-color: lightgray;
-    margin-right: 5px;
-    padding: 2px;
     cursor: pointer;
+    display: block;
 }
 
-.upcase {
-    text-transform: uppercase;
+input + a.filters {
+    margin-top: 20px;
 }
 
 .nav-tabs .nav-item {
     cursor: pointer;
+}
+
+a.suggestion {
+    margin-right: .25rem;
 }

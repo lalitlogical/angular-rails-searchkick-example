@@ -19,7 +19,7 @@ export class FiltersComponent implements OnInit {
     this.selectedOptions = this.mobileService.filters[this.aggregation.name];
   }
 
-  clearFilter() {
+  clearSelectedOptions() {
     this.mobileService.filters[this.aggregation.name] = [];
     this.mobileService.filterSelected.emit();
   }

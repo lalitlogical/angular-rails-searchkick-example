@@ -3,7 +3,7 @@ import { Mobile } from './mobile.model';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-mobile-list',
@@ -23,16 +23,33 @@ export class MobileListComponent implements OnInit {
     { name: 'Newest First', sort_by: 'newest' }
   ];
   public activeFilter = '_score';
-  @ViewChild('searchInput') searchInputRef: ElementRef;
+  public searchText = '';
 
-  constructor(private mobileService: MobileService, private spinner: NgxSpinnerService, private router: Router) {
+  constructor(private mobileService: MobileService, 
+    private spinner: NgxSpinnerService,
+    private router: Router,
+    private route: ActivatedRoute) {
     this.mobileService.filterSelected.subscribe(
       () => this.getMobiles()
     );
   }
 
   ngOnInit() {
+    this.buildFiltersFromQueryParams();
     this.getMobiles();
+  }
+
+  buildFiltersFromQueryParams() {
+    const queryParams = this.route.snapshot.queryParams;
+    for (const queryParam in queryParams) {
+      if (queryParam !== 'per_page') {
+        if (queryParam === 'sorting' || queryParam === 'search') {
+          this.mobileService.filters[queryParam] = queryParams[queryParam];
+        } else {
+          this.mobileService.filters[queryParam] = queryParams[queryParam].split(',');
+        }
+      }
+    }
   }
 
   onTabClick(sorting: string) {
@@ -41,28 +58,28 @@ export class MobileListComponent implements OnInit {
     this.getMobiles();
   }
 
-  onSearchTextFieldBlur() {
+  onSearchTextFieldBlur(event: any) {
+    this.searchText = event.target.value;
     this.getMobiles();
   }
 
   onClickOfSuggestion(suggestion: string) {
     this.mobileService.filters = [];
-    this.searchInputRef.nativeElement.value = suggestion;
+    this.searchText = suggestion;
     this.getMobiles();
   }
 
   getMobiles() {
     this.spinner.show();
-    const query = [];
-    const queryParams = {};
-    const searchText = this.searchInputRef.nativeElement.value;
-    if (searchText) {
-      queryParams['search'] = searchText;
-      query.push('search=' + searchText);
+    const query = ['per_page=10'];
+    const queryParams = {per_page: 10};
+    if (this.searchText) {
+      queryParams['search'] = this.searchText;
+      query.push('search=' + this.searchText);
     }
     for (const filter in this.mobileService.filters) {
       let value = null;
-      if (filter === 'sorting') {
+      if (filter === 'per_page' || filter === 'sorting' || filter === 'search') {
         if (this.mobileService.filters[filter]) {
           value = this.mobileService.filters[filter];
         }
@@ -118,7 +135,7 @@ export class MobileListComponent implements OnInit {
   }
 
   removeAllFilter() {
-    this.searchInputRef.nativeElement.value = '';
+    this.searchText = '';
     this.mobileService.filters = [];
     this.getMobiles();
   }

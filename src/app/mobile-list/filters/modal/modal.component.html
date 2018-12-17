@@ -8,12 +8,12 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" style="height: 400px; overflow-y: auto;">
         <app-checkbox style="width: 25%; float: left;" *ngFor="let bucket of aggregation.buckets" [categoryName]="aggregation.name" [bucket]="bucket" [modelCheckbox]="true" [selectedOptions]="selectedOptions"></app-checkbox>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary upcase" data-dismiss="modal" (click)="clearAllFilter()">Clear All</button>
-        <button type="button" class="btn btn-primary upcase" [ngClass]="{disabled: selectedOptions.length === 0}" data-dismiss="modal" (click)="onApplyFilters()">Apply Filters</button>
+        <button type="button" class="btn btn-raised btn-danger upcase" style="margin-right: .25rem;" data-dismiss="modal" (click)="clearAllFilter()">Clear All</button>
+        <button type="button" class="btn btn-raised btn-primary upcase" style="margin-right: .25rem;" [ngClass]="{disabled: selectedOptions.length === 0}" data-dismiss="modal" (click)="applyFilters()">Apply Filters</button>
       </div>
     </div>
   </div>

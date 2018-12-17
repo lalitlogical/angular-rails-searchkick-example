@@ -1,1 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+
+.upcase {
+    text-transform: uppercase;
+}
+
+/* .mb-4 {
+    margin: 0 !important;
+    border-bottom: 1px solid lightgrey !important;
+} */

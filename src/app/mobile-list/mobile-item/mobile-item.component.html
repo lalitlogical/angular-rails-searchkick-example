@@ -1,17 +1,19 @@
-<a [routerLink]="['/mobiles', mobile.id]" href="#">
-  <div class="card mb-4 box-shadow">
-    <img class="card-img-top" src="{{ mobile.avatar }}" style="height: 225px; width: 100%; display: block;" (error)="placeholder()" #avatarImage>
-    <div class="card-body">
-      <h5 class="card-title text-truncate" style="color: #000;" data-toggle="tooltip" data-placement="top" title="{{ mobile.name }}">
-        {{ mobile.name }}
-      </h5>
-      <ul style="list-style: none; padding: 0; margin: 0;">
+<!-- <a [routerLink]="['/mobiles', mobile.id]" href="#"> -->
+  <div class="card flex-md-row mb-4 box-shadow h-md-250">  
+    <div class="card-body d-flex flex-column align-items-start">
+      <strong class="d-inline-block mb-2 text-primary">{{ mobile.brand }}</strong>
+      <h3 class="mb-0" data-toggle="tooltip" data-placement="top" title="{{ mobile.name }}">
+        <a class="text-dark " [routerLink]="['/mobiles', mobile.id]" href="#">{{ mobile.name.split(' ').slice(0, 2).join(' ') }}</a>
+      </h3>
+      <ul style="padding: 0 15px; margin: 5px 0px;">
         <li> ₹{{ mobile.price }} </li>
         <li> {{ mobile.ram }} GB RAM </li>
         <li> {{ mobile.screen_size }} inch Display </li>
         <li> {{ mobile.primary_camera }} Rear Camera </li>
         <li> {{ mobile.battery }} mAh Battery </li>
       </ul>
+      <a [routerLink]="['/mobiles', mobile.id]" href="#">View</a>
     </div>
+    <img class="card-img-right flex-auto d-none d-md-block" src="{{ mobile.avatar }}" (error)="placeholder()" #avatarImage>
   </div>
-</a>
+<!-- </a> -->
