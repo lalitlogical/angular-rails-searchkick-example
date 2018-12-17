@@ -5,9 +5,9 @@
   type = "pacman"
 ></ngx-spinner>
 
-<div class="row">
+<div class="row" *ngIf="mobiles.length !== 0">
   <div class="col-sm-3">
-    <div class="card mb-4 box-shadow" *ngIf="mobiles.length !== 0">
+    <div class="card mb-4 box-shadow">
       <div class="card-body">
         <a class="btn btn-raised btn-sm btn-danger clear-filter upcase" *ngIf="getFilters().length !== 0" (click)="removeAllFilters()">
           clear all <span aria-hidden="true">×</span>
@@ -24,11 +24,9 @@
     <app-filters style="width: 100%;" *ngFor="let aggregation of aggregations" [aggregation]="aggregation"></app-filters>
   </div>
   <div class="col-sm-9">
-    <p class="font-weight-bold" *ngIf="mobiles.length !== 0">
-      Mobiles (Showing {{ ((meta.current_page - 1) * meta.per_page) + 1 }} – {{ (meta.current_page * meta.per_page) - 1 }} products of {{ meta.total_count }} products)
-    </p>
+    <p class="font-weight-bold"> {{ mobileListInfo() }} </p>
 
-    <ul class="nav nav-tabs bg-primary" *ngIf="mobiles.length !== 0">
+    <ul class="nav nav-tabs bg-primary">
       <li class="nav-item" *ngFor="let sorting_tab of sorting_tabs">
         <a class="nav-link" 
           (click)="onTabClick(sorting_tab.sort_by)"
@@ -41,6 +39,14 @@
         <app-mobile-item [mobile]="mobileItem"></app-mobile-item>
       </div>
     </div>
+
+    <a class="btn btn-raised btn-sm btn-info clear-filter upcase load-more" *ngIf="isPreviousPageAvailable()" (click)="loadPageFor(this.pagination.current_page - 1)">
+      Previous
+    </a>
+
+    <a class="btn btn-raised btn-sm btn-info clear-filter upcase load-more" *ngIf="isNextPageAvailable()" (click)="loadPageFor(this.pagination.next_page)">
+      Next
+    </a>
   </div>
 </div>
 
@@ -49,7 +55,7 @@
     <div>
       <img src="/src/assets/img/no-record-found.png" style="margin: 20px auto; display: block;">
     </div>
-    <div *ngIf="meta && suggestions">
+    <div *ngIf="suggestions">
       <p style="text-align: center;">
         Go with following suggestions.
         <a class="btn btn-raised btn-sm btn-info suggestion" *ngFor="let suggestion of suggestions" (click)="onClickOfSuggestion(suggestion)">{{ suggestion }}</a>

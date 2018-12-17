@@ -13,7 +13,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 })
 export class MobileListComponent implements OnInit {
   public mobiles: Mobile[] = [];
-  public meta: any;
+  public pagination: any;
   public suggestions: any[] = [];
   public aggregations: any[] = [];
   public sorting_tabs: any[] = [
@@ -38,6 +38,16 @@ export class MobileListComponent implements OnInit {
     this.spinner.show();
   }
 
+  mobileListInfo() {
+    let text = 'Mobiles (Showing ';
+    text += ((this.pagination.current_page - 1) * this.pagination.per_page) + 1;
+    text += ' – ';
+    const lastElementNumber = (this.pagination.current_page * this.pagination.per_page) - 1;
+    text += (lastElementNumber < this.pagination.total_count ? lastElementNumber : this.pagination.total_count);
+    text += ' products of ' + this.pagination.total_count + ' products)';
+    return text;
+  }
+
   isTabActive(sorting: string) {
     const activeSorting = this.mobileService.valueFor('sorting');
     if ((activeSorting && activeSorting === sorting) || (!activeSorting && sorting === '_score')) {
@@ -58,6 +68,18 @@ export class MobileListComponent implements OnInit {
     this.mobileService.navigateWith('search', suggestion, true);
   }
 
+  isPreviousPageAvailable() {
+    return this.pagination && this.pagination.current_page >= 2;
+  }
+
+  isNextPageAvailable() {
+    return this.pagination && this.pagination.next_page !== null;
+  }
+
+  loadPageFor(page: number) {
+    this.mobileService.navigateWith('page', page + '');
+  }
+
   fetchMobiles() {
     this.spinner.show();
 
@@ -75,19 +97,10 @@ export class MobileListComponent implements OnInit {
     this.mobileService.fetchMobiles(query.join('&'))
     .subscribe(res => {
       this.apiCompleted = true;
-      this.meta = res.meta;
-      this.aggregations = [];
-      for (const key in res.meta.aggregations) {
-        const buckets = res.meta.aggregations[key]['buckets'];
-        if (buckets.length !== 0) {
-          this.aggregations.push({
-            name: key,
-            buckets: buckets.sort((a: any, b: any) => a.count > b.count ? 1 : -1)
-          });
-        }
-      }
-      this.aggregations.sort((a, b) => a.name > b.name ? 1 : -1);
+      this.pagination = res.meta.pagination;
       this.suggestions = res.meta.suggestions;
+      this.aggregations = res.meta.aggregations;
+      this.aggregations.sort((a, b) => a.name > b.name ? 1 : -1);
       this.mobiles = res.data.map(mobile => new Mobile().deserialize(mobile));
       this.spinner.hide();
     });

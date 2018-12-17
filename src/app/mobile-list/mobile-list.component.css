@@ -14,3 +14,16 @@ input + a.filters {
 a.suggestion {
     margin-right: .25rem;
 }
+
+.load-more {
+    float: none !important;
+    margin-bottom: 20px;
+}
+
+.load-more + .load-more {
+    margin-left: .25rem;
+}
+
+.float-right {
+    float: right;
+}
