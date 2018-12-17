@@ -40,10 +40,10 @@ export class MobileListComponent implements OnInit {
 
   mobileListInfo() {
     let text = 'Mobiles (Showing ';
-    text += ((this.pagination.current_page - 1) * this.pagination.per_page) + 1;
+    const firstElementNumber = ((this.pagination.current_page - 1) * this.pagination.per_page) + 1;
+    text += firstElementNumber;
     text += ' – ';
-    const lastElementNumber = (this.pagination.current_page * this.pagination.per_page) - 1;
-    text += (lastElementNumber < this.pagination.total_count ? lastElementNumber : this.pagination.total_count);
+    text += (firstElementNumber + this.mobiles.length - 1);
     text += ' products of ' + this.pagination.total_count + ' products)';
     return text;
   }
