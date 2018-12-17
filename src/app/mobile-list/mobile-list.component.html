@@ -33,20 +33,32 @@
           [ngClass]="{'active': isTabActive(sorting_tab.sort_by)}">{{ sorting_tab.name }}</a>
       </li>
     </ul>
+    
+    <div class="pagination-container clearfix" style="margin: 24px 0;">
+      <a class="btn btn-raised btn-sm btn-info upcase pagination float-right" *ngIf="isNextPageAvailable()" (click)="loadPageFor(this.pagination.next_page)">
+        Next
+      </a>
 
-    <div class="row" style="margin-top: 25px;">
+      <a class="btn btn-raised btn-sm btn-info upcase pagination float-right" *ngIf="isPreviousPageAvailable()" (click)="loadPageFor(this.pagination.current_page - 1)">
+        Previous
+      </a>
+    </div>
+
+    <div class="row">
       <div class="col-sm-12" *ngFor="let mobileItem of mobiles">
         <app-mobile-item [mobile]="mobileItem"></app-mobile-item>
       </div>
     </div>
 
-    <a class="btn btn-raised btn-sm btn-info clear-filter upcase load-more" *ngIf="isPreviousPageAvailable()" (click)="loadPageFor(this.pagination.current_page - 1)">
-      Previous
-    </a>
+    <div class="pagination-container clearfix" style="margin-bottom: 24px;">
+      <a class="btn btn-raised btn-sm btn-info upcase pagination" *ngIf="isPreviousPageAvailable()" (click)="loadPageFor(this.pagination.current_page - 1)">
+        Previous
+      </a>
 
-    <a class="btn btn-raised btn-sm btn-info clear-filter upcase load-more" *ngIf="isNextPageAvailable()" (click)="loadPageFor(this.pagination.next_page)">
-      Next
-    </a>
+      <a class="btn btn-raised btn-sm btn-info upcase pagination" *ngIf="isNextPageAvailable()" (click)="loadPageFor(this.pagination.next_page)">
+        Next
+      </a>
+    </div>
   </div>
 </div>
 

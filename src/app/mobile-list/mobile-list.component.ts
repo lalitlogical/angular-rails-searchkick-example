@@ -25,7 +25,7 @@ export class MobileListComponent implements OnInit {
   public searchText = '';
   public apiCompleted = false;
 
-  constructor(private mobileService: MobileService, 
+  constructor(private mobileService: MobileService,
     private spinner: NgxSpinnerService,
     private router: Router,
     private route: ActivatedRoute) {

@@ -62,6 +62,9 @@ export class MobileService {
       this.router.navigate(['mobiles'], { queryParams: queryParams });
     } else {
       let queryParams = this.queryParams();
+      if (categoryName !== 'page') {
+        delete queryParams['page'];
+      }
       if (categoryName) {
         if (value) {
           queryParams[categoryName] = value;
