@@ -6,22 +6,25 @@
 ></ngx-spinner>
 
 <div class="row" *ngIf="mobile">
-    <div class="col-sm-4">
-      <img src="{{ mobile.avatar }}" alt="..." class="img-thumbnail" onError="placeholder(this)">
-    </div>
-    <div class="col-sm-8">
-      <div class="card" style="margin-bottom: 20px;">
-        <div class="card-body">
-          <h4 class="card-title">{{ mobile.name }}</h4>
-          <p class="card-text">{{ mobile.description }}</p>
-          <ul style="list-style: none; padding: 0; margin: 0;">
-            <li> ₹{{ mobile.price }} </li>
-            <li> {{ mobile.ram }} GB RAM </li>
-            <li> {{ mobile.screen_size }} inch Display </li>
-            <li> {{ mobile.primary_camera }} Rear Camera </li>
-            <li> {{ mobile.battery }} mAh Battery </li>
-          </ul>
-        </div>
+  <div class="col-sm-4">
+    <img src="{{ mobile.avatar }}" alt="..." class="img-thumbnail" onError="placeholder(this)">
+    <a routerLink="/mobiles" href="#" class="btn btn-raised btn-primary my-2">
+      <i class="fas fa-arrow-left"></i> Mobiles
+    </a>
+  </div>
+  <div class="col-sm-8">
+    <div class="card" style="margin-bottom: 20px;">
+      <div class="card-body">
+        <h4 class="card-title">{{ mobile.name }}</h4>
+        <p class="card-text">{{ mobile.description }}</p>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li> ₹{{ mobile.price }} </li>
+          <li> {{ mobile.ram }} GB RAM </li>
+          <li> {{ mobile.screen_size }} inch Display </li>
+          <li> {{ mobile.primary_camera }} Rear Camera </li>
+          <li> {{ mobile.battery }} mAh Battery </li>
+        </ul>
       </div>
     </div>
   </div>
+</div>

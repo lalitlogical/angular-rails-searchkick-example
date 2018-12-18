@@ -17,7 +17,7 @@
         <input name="search" class="form-control" type="search" placeholder="Search" aria-label="Search" [value]="searchText" (blur)="onSearchTextFieldBlur($event)">
 
         <a class="btn btn-raised btn-sm btn-danger filters" *ngFor="let filter of getFilters()" (click)="removeFilter(filter)">
-          <span aria-hidden="true">×</span> {{ mobileService.humanize(filter) }}
+          <span aria-hidden="true">×</span> {{ utilityService.humanize(filter) }}
         </a>
       </div>
     </div>

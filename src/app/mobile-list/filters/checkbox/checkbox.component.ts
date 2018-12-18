@@ -1,6 +1,7 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { MobileService } from '../../mobile.service';
+import { HttpClientService } from './../../../http-client.service';
+import { UtilityService } from 'src/app/utility.service';
 
 @Component({
   selector: 'app-checkbox',
@@ -14,21 +15,22 @@ export class CheckboxComponent implements OnInit {
   @Input() selectedOptions: string[] = null;
   public checkboxId: string;
 
-  constructor(private mobileService: MobileService) { }
+  constructor(private utilityService: UtilityService,
+    private httpClientService: HttpClientService) { }
 
   ngOnInit() {
-    this.checkboxId = this.categoryName + 'Checkbox' + this.bucket.key;
+    this.checkboxId = `${this.categoryName}Checkbox${this.bucket.key}`;
     if (this.modelCheckbox) {
       this.checkboxId += 'Model';
     }
 
     if (!this.selectedOptions) {
-      this.selectedOptions = this.mobileService.valueFor(this.categoryName, true);
+      this.selectedOptions = this.httpClientService.valueFor(this.categoryName, true);
     }
   }
 
   onCheckboxChange(event: any, value: string) {
-    const queryParams = this.mobileService.queryParams();
+    const queryParams = this.httpClientService.queryParams();
 
     if (event.target.checked) {
       this.selectedOptions.push(value);
@@ -38,7 +40,7 @@ export class CheckboxComponent implements OnInit {
 
     queryParams[this.categoryName] = this.selectedOptions.join(',');
     if (!this.modelCheckbox) {
-      this.mobileService.navigateWith(this.categoryName, this.selectedOptions.join(','));
+      this.httpClientService.navigateWith(this.categoryName, this.selectedOptions.join(','));
     }
   }
 

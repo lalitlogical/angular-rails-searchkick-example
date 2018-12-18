@@ -16,7 +16,8 @@ import { CheckboxComponent } from './mobile-list/filters/checkbox/checkbox.compo
 import { ModalComponent } from './mobile-list/modal/modal.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AppRoutingModule } from './app-routing.module';
-import { MobileService } from './mobile-list/mobile.service';
+import { UtilityService } from './utility.service';
+import { HttpClientService } from './http-client.service';
 import { HomeComponent } from './home/home.component';
 
 @NgModule({
@@ -38,7 +39,7 @@ import { HomeComponent } from './home/home.component';
     NgxSpinnerModule,
     AppRoutingModule
   ],
-  providers: [MobileService],
+  providers: [UtilityService, HttpClientService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

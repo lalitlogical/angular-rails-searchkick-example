@@ -1,5 +1,6 @@
-import { MobileService } from './../mobile.service';
 import { Component, OnInit, Input } from '@angular/core';
+import { HttpClientService } from './../../http-client.service';
+import { UtilityService } from '../../utility.service';
 
 @Component({
   selector: 'app-filter-modal',
@@ -10,8 +11,9 @@ export class ModalComponent implements OnInit {
   public aggregation: {name: string, buckets: any[]};
   public selectedOptions: string[];
 
-  constructor(private mobileService: MobileService) {
-    this.mobileService.modelOpened.subscribe(
+  constructor(private utilityService: UtilityService,
+    private httpClientService: HttpClientService) {
+    this.utilityService.modelOpened.subscribe(
       (aggregation: any) => {
         this.aggregation = aggregation;
         this.setSelectedOptions();
@@ -23,18 +25,18 @@ export class ModalComponent implements OnInit {
   }
 
   setSelectedOptions() {
-    this.selectedOptions = this.mobileService.valueFor(this.aggregation.name, true);
+    this.selectedOptions = this.httpClientService.valueFor(this.aggregation.name, true);
   }
 
   applyFilters() {
     if (this.selectedOptions.length !== 0) {
-      this.mobileService.navigateWith(this.aggregation.name, this.selectedOptions.join(','));
+      this.httpClientService.navigateWith(this.aggregation.name, this.selectedOptions.join(','));
     }
   }
 
   clearAllFilter() {
     if (this.selectedOptions.length !== 0) {
-      this.mobileService.navigateWith(this.aggregation.name, null);
+      this.httpClientService.navigateWith(this.aggregation.name, null);
     }
   }
 }

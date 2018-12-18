@@ -1,8 +1,9 @@
+import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Mobile } from './../mobile-list/mobile.model';
 import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { MobileService } from '../mobile-list/mobile.service';
-import { ActivatedRoute, Router, Params } from '@angular/router';
+import { HttpClientService } from './../http-client.service';
+import { UtilityService } from './../utility.service';
 
 @Component({
   selector: 'app-mobile-detail',
@@ -12,7 +13,8 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 export class MobileDetailComponent implements OnInit {
   public mobile: Mobile;
 
-  constructor(private mobileService: MobileService,
+  constructor(private utilityService: UtilityService,
+    private httpClientService: HttpClientService,
     private spinner: NgxSpinnerService,
     private route: ActivatedRoute,
     private router: Router) { }
@@ -24,7 +26,7 @@ export class MobileDetailComponent implements OnInit {
 
   fetchMobileDetail(id: number) {
     this.spinner.show();
-    this.mobileService.fetchMobileDetail(id)
+    this.httpClientService.getRequest(`/mobiles/${id}`)
     .subscribe(res => {
       this.mobile = res.data;
       this.spinner.hide();

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { MobileService } from '../mobile.service';
+import { UtilityService } from '../../utility.service';
+import { HttpClientService } from './../../http-client.service';
 
 @Component({
   selector: 'app-filters',
@@ -10,17 +11,18 @@ export class FiltersComponent implements OnInit {
   @Input() aggregation: {name: string, buckets: any[]};
   public selectedOptions: string[];
 
-  constructor(private mobileService: MobileService ) { }
+  constructor(private utilityService: UtilityService,
+    private httpClientService: HttpClientService) { }
 
   ngOnInit() {
-    this.selectedOptions = this.mobileService.valueFor(this.aggregation.name, true);
+    this.selectedOptions = this.httpClientService.valueFor(this.aggregation.name, true);
   }
 
   clearSelectedOptions() {
-    this.mobileService.navigateWith(this.aggregation.name, null);
+    this.httpClientService.navigateWith(this.aggregation.name, null);
   }
 
   openFilterModel() {
-    this.mobileService.modelOpened.emit(this.aggregation);
+    this.utilityService.modelOpened.emit(this.aggregation);
   }
 }

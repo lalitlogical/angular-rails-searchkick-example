@@ -1,7 +1,8 @@
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
-import { MobileService } from './mobile.service';
+import { UtilityService } from './../utility.service';
+import { HttpClientService } from './../http-client.service';
 import { Mobile } from './mobile.model';
 import { Meta } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -10,7 +11,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
   selector: 'app-mobile-list',
   templateUrl: './mobile-list.component.html',
   styleUrls: ['./mobile-list.component.css'],
-  providers: [MobileService]
+  providers: []
 })
 export class MobileListComponent implements OnInit {
   public mobiles: Mobile[] = [];
@@ -26,7 +27,8 @@ export class MobileListComponent implements OnInit {
   public searchText = '';
   public apiCompleted = false;
 
-  constructor(private mobileService: MobileService,
+  constructor(private utilityService: UtilityService,
+    private httpClientService: HttpClientService,
     private spinner: NgxSpinnerService,
     private router: Router,
     private route: ActivatedRoute) {
@@ -50,7 +52,7 @@ export class MobileListComponent implements OnInit {
   }
 
   isTabActive(sorting: string) {
-    const activeSorting = this.mobileService.valueFor('sorting');
+    const activeSorting = this.httpClientService.valueFor('sorting');
     if ((activeSorting && activeSorting === sorting) || (!activeSorting && sorting === '_score')) {
       return true;
     }
@@ -58,15 +60,15 @@ export class MobileListComponent implements OnInit {
   }
 
   onTabClick(sorting: string) {
-    this.mobileService.navigateWith('sorting', sorting);
+    this.httpClientService.navigateWith('sorting', sorting);
   }
 
   onSearchTextFieldBlur(event: any) {
-    this.mobileService.navigateWith('search', event.target.value);
+    this.httpClientService.navigateWith('search', event.target.value);
   }
 
   onClickOfSuggestion(suggestion: string) {
-    this.mobileService.navigateWith('search', suggestion, true);
+    this.httpClientService.navigateWith('search', suggestion, true);
   }
 
   isPreviousPageAvailable() {
@@ -78,7 +80,7 @@ export class MobileListComponent implements OnInit {
   }
 
   loadPageFor(page: number) {
-    this.mobileService.navigateWith('page', page + '');
+    this.httpClientService.navigateWith('page', page + '');
   }
 
   fetchMobiles() {
@@ -86,16 +88,16 @@ export class MobileListComponent implements OnInit {
 
     // build API query based on browser queries
     const query = ['per_page=10'];
-    const queryParams = this.mobileService.queryParams();
+    const queryParams = this.httpClientService.queryParams();
     for (const queryParam in queryParams) {
-      query.push(queryParam + '=' + queryParams[queryParam]);
+      query.push(`${queryParam}=${queryParams[queryParam]}`);
     }
 
     // search text if any
-    this.searchText = this.mobileService.valueFor('search');
+    this.searchText = this.httpClientService.valueFor('search');
 
     // call API for mobile listing data
-    this.mobileService.fetchMobiles(query.join('&'))
+    this.httpClientService.getRequest('/mobiles', query.join('&'))
     .subscribe(res => {
       this.apiCompleted = true;
       this.pagination = res.meta.pagination;
@@ -108,21 +110,21 @@ export class MobileListComponent implements OnInit {
   }
 
   getFilters() {
-    const filters = [];
-    for (const filter in this.mobileService.queryParams()) {
-      if (filter !== 'search' && filter !== 'sorting') {
-        filters.push(filter);
+    const filters = Object.keys(this.httpClientService.queryParams());
+    for (const filter in ['search', 'sorting']) {
+      if (filters.indexOf(filter) >= 0) {
+        filters.splice(filters.indexOf(filter), 1);
       }
     }
     return filters;
   }
 
   removeFilter(filter: string) {
-    this.mobileService.navigateWith(filter, null);
+    this.httpClientService.navigateWith(filter, null);
   }
 
   removeAllFilters() {
-    this.mobileService.navigateWith(null, null);
+    this.httpClientService.navigateWith(null, null);
   }
 
 }
