@@ -12,7 +12,5 @@
     <a class="upcase more" *ngIf="aggregation.buckets.length >= 6" data-toggle="modal" (click)="openFilterModel()" [attr.data-target]="'#' + aggregation.name">
       {{ aggregation.buckets.length - 5 }} more
     </a>
-    
-    <app-filter-modal *ngIf="aggregation.buckets.length >= 6" [aggregation]="aggregation"></app-filter-modal>
   </div>
 </div>

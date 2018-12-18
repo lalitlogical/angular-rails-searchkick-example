@@ -21,6 +21,6 @@ export class FiltersComponent implements OnInit {
   }
 
   openFilterModel() {
-    this.mobileService.modelOpened.emit();
+    this.mobileService.modelOpened.emit(this.aggregation);
   }
 }

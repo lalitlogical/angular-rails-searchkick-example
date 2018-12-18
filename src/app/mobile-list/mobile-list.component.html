@@ -22,6 +22,7 @@
       </div>
     </div>
     <app-filters style="width: 100%;" *ngFor="let aggregation of aggregations" [aggregation]="aggregation"></app-filters>
+    <app-filter-modal></app-filter-modal>
   </div>
   <div class="col-sm-9">
     <p class="font-weight-bold"> {{ mobileListInfo() }} </p>

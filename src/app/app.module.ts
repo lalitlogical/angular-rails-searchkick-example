@@ -13,12 +13,11 @@ import { FiltersComponent } from './mobile-list/filters/filters.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MobileItemComponent } from './mobile-list/mobile-item/mobile-item.component';
 import { CheckboxComponent } from './mobile-list/filters/checkbox/checkbox.component';
-import { ModalComponent } from './mobile-list/filters/modal/modal.component';
+import { ModalComponent } from './mobile-list/modal/modal.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AppRoutingModule } from './app-routing.module';
 import { MobileService } from './mobile-list/mobile.service';
 import { HomeComponent } from './home/home.component';
-// import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -38,7 +37,6 @@ import { HomeComponent } from './home/home.component';
     HttpClientModule,
     NgxSpinnerModule,
     AppRoutingModule
-    // FontAwesomeModule
   ],
   providers: [MobileService],
   bootstrap: [AppComponent]

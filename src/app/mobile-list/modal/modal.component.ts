@@ -1,4 +1,4 @@
-import { MobileService } from './../../mobile.service';
+import { MobileService } from './../mobile.service';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -7,19 +7,19 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./modal.component.css']
 })
 export class ModalComponent implements OnInit {
-  @Input() aggregation: {name: string, buckets: any[]};
+  public aggregation: {name: string, buckets: any[]};
   public selectedOptions: string[];
 
   constructor(private mobileService: MobileService) {
     this.mobileService.modelOpened.subscribe(
-      () => {
+      (aggregation: any) => {
+        this.aggregation = aggregation;
         this.setSelectedOptions();
       }
     );
   }
 
   ngOnInit() {
-    this.setSelectedOptions();
   }
 
   setSelectedOptions() {

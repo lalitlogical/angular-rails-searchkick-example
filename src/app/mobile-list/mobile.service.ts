@@ -6,9 +6,9 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class MobileService {
-  public base_url = 'http://localhost:3009/api/v1';
+  public base_url = 'http://localhost:3008/api/v1';
   public mobiles: Mobile[];
-  modelOpened = new EventEmitter<void>();
+  modelOpened = new EventEmitter<any>();
 
   constructor(private http: HttpClient,
     private router: Router,

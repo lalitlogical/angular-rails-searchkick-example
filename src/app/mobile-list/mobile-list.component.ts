@@ -1,9 +1,10 @@
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+
 import { MobileService } from './mobile.service';
 import { Mobile } from './mobile.model';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-mobile-list',
