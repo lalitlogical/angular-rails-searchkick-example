@@ -15,7 +15,7 @@ export class FiltersComponent implements OnInit {
     private httpClientService: HttpClientService) { }
 
   ngOnInit() {
-    this.selectedOptions = this.httpClientService.valueFor(this.aggregation.name, true);
+    this.selectedOptions = this.httpClientService.valueFor(this.aggregation.name);
   }
 
   clearSelectedOptions() {

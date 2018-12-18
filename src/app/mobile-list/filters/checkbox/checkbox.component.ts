@@ -25,7 +25,7 @@ export class CheckboxComponent implements OnInit {
     }
 
     if (!this.selectedOptions) {
-      this.selectedOptions = this.httpClientService.valueFor(this.categoryName, true);
+      this.selectedOptions = this.httpClientService.valueFor(this.categoryName);
     }
   }
 

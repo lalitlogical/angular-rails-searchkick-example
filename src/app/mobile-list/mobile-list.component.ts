@@ -52,7 +52,7 @@ export class MobileListComponent implements OnInit {
   }
 
   isTabActive(sorting: string) {
-    const activeSorting = this.httpClientService.valueFor('sorting');
+    const activeSorting = this.httpClientService.valueFor('sorting', false);
     if ((activeSorting && activeSorting === sorting) || (!activeSorting && sorting === '_score')) {
       return true;
     }
@@ -94,7 +94,7 @@ export class MobileListComponent implements OnInit {
     }
 
     // search text if any
-    this.searchText = this.httpClientService.valueFor('search');
+    this.searchText = this.httpClientService.valueFor('search', false);
 
     // call API for mobile listing data
     this.httpClientService.getRequest('/mobiles', query.join('&'))

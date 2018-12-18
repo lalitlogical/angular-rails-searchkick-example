@@ -19,7 +19,7 @@ export class HttpClientService {
     return this.http.post(`${this.base_url}${endpoint}`, data, httpOptions);
   }
 
-  public valueFor(categoryName: string, multiple?: boolean) {
+  public valueFor(categoryName: string, multiple = true) {
     const queryParams = Object.assign({}, this.route.snapshot.queryParams);
     if (!queryParams[categoryName]) {
       return multiple ? [] : '';

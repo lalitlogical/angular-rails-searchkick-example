@@ -25,7 +25,7 @@ export class ModalComponent implements OnInit {
   }
 
   setSelectedOptions() {
-    this.selectedOptions = this.httpClientService.valueFor(this.aggregation.name, true);
+    this.selectedOptions = this.httpClientService.valueFor(this.aggregation.name);
   }
 
   applyFilters() {
