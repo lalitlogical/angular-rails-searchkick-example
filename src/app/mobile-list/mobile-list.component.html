@@ -63,8 +63,8 @@
   </div>
 </div>
 
-<div class="row" *ngIf="apiCompleted && mobiles.length === 0">
-  <div class="col-sm-12">
+<div class="row" *ngIf="(apiCompleted || error) && mobiles.length === 0">
+  <div class="col-sm-12" *ngIf="!error">
     <div>
       <img src="/src/assets/img/no-record-found.png" style="margin: 20px auto; display: block;">
     </div>
@@ -76,5 +76,10 @@
       <p style="text-align: center;">OR</p>
     </div>
     <button class="upcase" style="margin: 20px auto; display: block;" class="btn btn-raised btn-primary" (click)="removeAllFilters()">Reset all filters</button>
+  </div>
+  <div class="col-sm-12" *ngIf="error">
+    <div>
+      <img src="/src/assets/img/creative-404-error-page-design-marketing-assets.jpg" style="margin: 20px auto; display: block;">
+    </div>
   </div>
 </div>

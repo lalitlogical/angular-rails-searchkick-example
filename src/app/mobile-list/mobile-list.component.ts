@@ -6,6 +6,7 @@ import { HttpClientService } from './../http-client.service';
 import { Mobile } from './mobile.model';
 import { Meta } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-mobile-list',
@@ -26,6 +27,7 @@ export class MobileListComponent implements OnInit {
   ];
   public searchText = '';
   public apiCompleted = false;
+  public error: HttpErrorResponse = null;
 
   constructor(private utilityService: UtilityService,
     private httpClientService: HttpClientService,
@@ -84,6 +86,8 @@ export class MobileListComponent implements OnInit {
   }
 
   fetchMobiles() {
+    this.error = null;
+    this.apiCompleted = false;
     this.spinner.show();
 
     // build API query based on browser queries
@@ -99,14 +103,19 @@ export class MobileListComponent implements OnInit {
     // call API for mobile listing data
     this.httpClientService.getRequest('/mobiles', query.join('&'))
     .subscribe(res => {
-      this.apiCompleted = true;
-      this.pagination = res.meta.pagination;
-      this.suggestions = res.meta.suggestions;
-      this.aggregations = res.meta.aggregations;
-      this.aggregations.sort((a, b) => a.name > b.name ? 1 : -1);
-      this.mobiles = res.data.map(mobile => new Mobile().deserialize(mobile));
-      this.spinner.hide();
-    });
+        this.apiCompleted = true;
+        this.pagination = res.meta.pagination;
+        this.suggestions = res.meta.suggestions;
+        this.aggregations = res.meta.aggregations;
+        this.aggregations.sort((a, b) => a.name > b.name ? 1 : -1);
+        this.mobiles = res.data.map((mobile: any) => new Mobile().deserialize(mobile));
+        this.spinner.hide();
+      },
+      (error: HttpErrorResponse) => {
+        this.error = error;
+        this.spinner.hide();
+      }
+    );
   }
 
   getFilters() {
