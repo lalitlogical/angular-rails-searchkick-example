@@ -19,6 +19,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { UtilityService } from './utility.service';
 import { HttpClientService } from './http-client.service';
 import { HomeComponent } from './home/home.component';
+import { PaginationComponent } from './pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { HomeComponent } from './home/home.component';
     CheckboxComponent,
     ModalComponent,
     PageNotFoundComponent,
-    HomeComponent
+    HomeComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,
