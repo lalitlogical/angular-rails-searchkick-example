@@ -8,7 +8,7 @@
 <div class="row" *ngIf="mobile">
   <div class="col-sm-4">
     <img src="{{ mobile.avatar }}" alt="..." class="img-thumbnail" onError="placeholder(this)">
-    <a routerLink="/mobiles" href="#" class="btn btn-raised btn-primary my-2">
+    <a class="btn btn-raised btn-primary my-2" (click)="goBack()">
       <i class="fas fa-arrow-left"></i> Mobiles
     </a>
   </div>
