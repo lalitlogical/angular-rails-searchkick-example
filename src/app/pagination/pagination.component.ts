@@ -25,7 +25,13 @@ export class PaginationComponent implements OnInit, OnChanges {
   }
 
   selectPage(page: number) {
-    this.httpClientService.navigateWith('page', page + '');
+    if (this.pagination.current_page !== page) {
+      this.httpClientService.navigateWith('page', page + '');
+    }
+  }
+
+  lastPage() {
+    return Math.ceil(this.pagination.total_count / this.pagination.per_page);
   }
 
   noPrevious() {
@@ -33,11 +39,7 @@ export class PaginationComponent implements OnInit, OnChanges {
   }
 
   noNext() {
-    return this.pagination.current_page === this.pagination.total_count;
-  }
-
-  lastPage() {
-    return (this.pagination.total_count / this.pagination.per_page);
+    return this.pagination.current_page === this.lastPage();
   }
 
   buildPages() {
@@ -52,6 +54,11 @@ export class PaginationComponent implements OnInit, OnChanges {
       left_page = this.pagination.current_page - padding;
       last_page = this.pagination.current_page + padding;
       if (last_page > this.lastPage()) { last_page = this.lastPage(); }
+    }
+
+    if (max_pages > (last_page - left_page + 1)) {
+      left_page = last_page - max_pages + 1;
+      if (left_page <= 0) { left_page = 1; }
     }
 
     for (let index = left_page; index <= last_page; index++) {
