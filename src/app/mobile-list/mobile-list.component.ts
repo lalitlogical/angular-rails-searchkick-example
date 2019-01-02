@@ -128,6 +128,10 @@ export class MobileListComponent implements OnInit {
     return filters;
   }
 
+  onScroll() {
+    console.log('scrolled!!');
+  }
+
   removeFilter(filter: string) {
     this.httpClientService.navigateWith(filter, null);
   }

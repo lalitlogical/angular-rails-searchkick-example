@@ -37,7 +37,11 @@
 
     <app-pagination [pagination]="pagination"></app-pagination>
 
-    <div class="row">
+    <div class="row" 
+      infiniteScroll
+      [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="50"
+      (scrolled)="onScroll()">
       <div class="col-sm-12" *ngFor="let mobileItem of mobiles">
         <app-mobile-item [mobile]="mobileItem"></app-mobile-item>
       </div>

@@ -24,6 +24,7 @@
     "bootstrap-material-design": "^4.1.1",
     "core-js": "^2.5.4",
     "jquery": "^3.3.1",
+    "ngx-infinite-scroll": "^7.0.0",
     "ngx-spinner": "^6.1.2",
     "popper": "^1.0.1",
     "popper.js": "^1.14.3",

@@ -20,6 +20,7 @@ import { UtilityService } from './utility.service';
 import { HttpClientService } from './http-client.service';
 import { HomeComponent } from './home/home.component';
 import { PaginationComponent } from './pagination/pagination.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { PaginationComponent } from './pagination/pagination.component';
     BrowserModule,
     HttpClientModule,
     NgxSpinnerModule,
-    AppRoutingModule
+    AppRoutingModule,
+    InfiniteScrollModule
   ],
   providers: [UtilityService, HttpClientService],
   bootstrap: [AppComponent]
